@@ -1,5 +1,7 @@
-go
-create proc usp_ThemSanPham
+﻿go
+create 
+--alter
+proc usp_ThemSanPham
 	@TenSP nvarchar(50),
 	@ChuDe tinyint,
 	@MauSac tinyint,
@@ -15,15 +17,24 @@ begin
 end
 
 go 
-create proc usp_XoaSanPham
+create
+--alter 
+proc usp_XoaSanPham
 	@MaSP int
 as
 begin
+	if not exists (select * from SanPham where MaSP = @MaSP)
+	begin
+		print N'Mã sản phẩm không tồn tại'
+		return 1
+	end
 	delete SanPham where MaSP = @MaSP
 end
 
 go
-create proc usp_TimMotSanPham
+create
+--alter
+proc usp_TimMotSanPham
 	@MaSP int
 as
 begin
@@ -31,7 +42,9 @@ begin
 end
 
 go
-create proc usp_CapNhatSanPham
+create
+--alter
+proc usp_CapNhatSanPham
 	@MaSP int,
 	@TenSP nvarchar(50),
 	@ChuDe tinyint,
@@ -43,6 +56,11 @@ create proc usp_CapNhatSanPham
 	@GiaSauGiam int
 as
 begin 
+	if not exists (select * from SanPham where MaSP = @MaSP)
+	begin 
+		print N'Mã sản phẩm không tồn tại'
+		return 1
+	end
 	update SanPham set TenSP = @TenSP, 
 						ChuDe = @ChuDe, 
 						MauSac = @MauSac,
@@ -55,7 +73,9 @@ begin
 end
 
 go
-create proc usp_TheoDoiTonKho 
+create
+--alter 
+proc usp_TheoDoiTonKho 
 as
 begin
 	select sp.MaSP, sp.TenSP, cn.MaCNhanh, cn.TenCNhanh, spcn.SoLuongTon
@@ -64,20 +84,29 @@ begin
 end
 
 go
-create proc usp_TheoDoiDonNhap
+create
+--alter 
+proc usp_TheoDoiDonNhap
 as
 begin
 	select * from DonNhap
 end
 
 go
-create proc usp_LuuVetGiaSanPham
+create
+--alter
+proc usp_LuuVetGiaSanPham
 	@MaSP int,
 	@GiaTruocGiam int,
 	@GiaSauGiam int,
 	@NgayApDung datetime
 as
 begin
+	if not exists (select * from SanPham where MaSP = @MaSP)
+	begin 
+		print N'Mã sản phẩm không tồn tại'
+		return 1
+	end
 	insert into LichSuGia (MaSP, GiaTruocGiam, GiaSauGiam, NgayApDung) 
 	values (@MaSP, @GiaTruocGiam, @GiaSauGiam, @NgayApDung)
 end
