@@ -104,7 +104,7 @@ CREATE TABLE KhachHang
 	TenKH NVARCHAR(30) CHECK (TenKH <> ' '),
 	SDT_KH VARCHAR(15),
 	EmailKH VARCHAR(30) CHECK (EmailKH <> ' '),
-	MatKhauKH VARCHAR(20) CHECK (MatKhauKH != ''),
+	MatKhauKH VARCHAR(20) CHECK (MatKhauKH <> ''),
 	DiaChiKH NVARCHAR(255),
 	
 	CONSTRAINT PK_KhachHang
@@ -118,7 +118,7 @@ CREATE TABLE ChiNhanh
 	SDT_CNhanh CHAR(15),
 	PasswordBH VARCHAR(20) CHECK (PasswordBH <> ' '),
 	TrangThaiHD BIT NOT NULL,
-	MaTinh TINYINT NOT NULL
+	MaTinh TINYINT NOT NULL,
 	TenTinh NVARCHAR(30),
 
 	CONSTRAINT PK_ChiNhanh
