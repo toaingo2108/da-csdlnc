@@ -1,8 +1,7 @@
 USE QLDH
 GO
-SET identity_insert khuvuc2 on;
-
-    INSERT khuvuc2 ([MaKV],[MaTinh],[Ten_QHuyen],[PhiGiaoHang],[MaCNhanh],[TenTinh])
+SET IDENTITY_INSERT khuvuc ON;
+    INSERT khuvuc ([MaKV],[MaTinh],[Ten_QHuyen],[PhiGiaoHang],[MaCNhanh],[TenTinh])
     SELECT 1,1,N'Bình Chánh',30000,1,N'Hồ Chí Minh' UNION ALL
     SELECT 2,1,N'Bình Tân',21000,1,N'Hồ Chí Minh' UNION ALL
     SELECT 3,1,N'Bình Thạnh',30000,1,N'Hồ Chí Minh' UNION ALL
@@ -712,5 +711,4 @@ SET identity_insert khuvuc2 on;
     SELECT 707,63,N'Thông Nông',22000,245,N'Cao Bằng' UNION ALL
     SELECT 708,63,N'Trà Lĩnh',22000,245,N'Cao Bằng' UNION ALL
     SELECT 709,63,N'Trùng Khánh',30000,245,N'Cao Bằng';
-
-set identity_insert khuvuc2 off;
+set IDENTITY_INSERT khuvuc off;

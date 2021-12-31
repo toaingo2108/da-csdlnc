@@ -1,4 +1,7 @@
-INSERT ChiNhanh ([MaCNhanh],[TenCNhanh],[DiaChiCNhanh],[SDT_CNhanh],[PasswordBH],[TrangThaiHD],[MaTinh],[TenTinh])
+USE QLDH
+GO
+SET IDENTITY_INSERT ChiNhanh ON;
+    INSERT ChiNhanh ([MaCNhanh],[TenCNhanh],[DiaChiCNhanh],[SDT_CNhanh],[PasswordBH],[TrangThaiHD],[MaTinh],[TenTinh])
     SELECT 1,N'SHOP HOA Bình Chánh Hồ Chí Minh',N'Đường 1, Bình Chánh, Hồ Chí Minh','0553019035','5Fw4NfKkAQ',1,1,N'Hồ Chí Minh' UNION ALL
     SELECT 2,N'SHOP HOA Hóc Môn Hồ Chí Minh',N'Đường 1, Hóc Môn, Hồ Chí Minh','0912100610','0TBIewvUEn',1,1,N'Hồ Chí Minh' UNION ALL
     SELECT 3,N'SHOP HOA Quận 11 Hồ Chí Minh',N'Đường 1, Quận 11, Hồ Chí Minh','0947356807','7vW0c8Ksnl',1,1,N'Hồ Chí Minh' UNION ALL
@@ -250,5 +253,4 @@ INSERT ChiNhanh ([MaCNhanh],[TenCNhanh],[DiaChiCNhanh],[SDT_CNhanh],[PasswordBH]
     SELECT 249,N'SHOP HOA Hòa An Cao Bằng',N'Đường 3, Hòa An, Cao Bằng','0644691936','jcQZ2vbh0K',1,63,N'Cao Bằng' UNION ALL
     SELECT 250,N'SHOP HOA Thạch An Cao Bằng',N'Đường Quốc lộ 4A, Thạch An, Cao Bằng','0635106965','EMaOnFR0dS',1,63,N'Cao Bằng' UNION ALL
     SELECT 251,N'SHOP HOA Trùng Khánh Cao Bằng',N'Đường Tỉnh lộ 206, Trùng Khánh, Cao Bằng','0894007913','ixFhH9fDZd',1,63,N'Cao Bằng';
-
-    set identity_insert [#tempChiNhanh] off;
+set IDENTITY_INSERT ChiNhanh OFF;
