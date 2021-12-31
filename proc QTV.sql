@@ -9,36 +9,63 @@ proc usp_ThemSanPham
 	@MoTa nvarchar(max),
 	@TrangThaiHD bit,
 	@GiaTruocGiam int,
-	@GiaSauGiam int
+	@GiaSauGiam int,
+	@error nvarchar(MAX) output
 as
 begin
-	insert into SanPham (TenSP, ChuDe, MauSac, LoaiHoa, MoTa, TrangThaiHD, GiaTruocGiam, GiaSauGiam) 
-	values (@TenSP, @ChuDe, @MauSac, @LoaiHoa, @MoTa, @TrangThaiHD, @GiaTruocGiam, @GiaSauGiam)
+	begin try
+		insert into SanPham (TenSP, ChuDe, MauSac, LoaiHoa, MoTa, TrangThaiHD, GiaTruocGiam, GiaSauGiam) 
+		output inserted.* 
+		values (@TenSP, @ChuDe, @MauSac, @LoaiHoa, @MoTa, @TrangThaiHD, @GiaTruocGiam, @GiaSauGiam)
+
+	end try
+	begin catch
+		set @error = ERROR_MESSAGE()
+	end catch
 end
 
 go 
 create
 --alter 
 proc usp_XoaSanPham
-	@MaSP int
+	@MaSP int,
+	@error nvarchar(MAX) output
 as
 begin
-	if not exists (select * from SanPham where MaSP = @MaSP)
-	begin
-		print N'Mã sản phẩm không tồn tại'
-		return 1
-	end
-	delete SanPham where MaSP = @MaSP
+	begin try
+		if not exists (select * from SanPham where MaSP = @MaSP)
+		begin
+			RAISERROR ('Mã sản phẩm %d không tồn tại', 11, 1, @MaSP)
+		end
+
+		delete SanPham 
+		output deleted.* 
+		where MaSP = @MaSP
+	end try
+	begin catch
+		set @error = ERROR_MESSAGE()
+	end catch 
 end
 
 go
 create
 --alter
 proc usp_TimMotSanPham
-	@MaSP int
+	@MaSP int,
+	@error nvarchar(MAX) output
 as
 begin
-	select * from SanPham where MaSP = @MaSP
+	begin try
+		if not exists (select * from SanPham where MaSP = @MaSP)
+		begin
+			RAISERROR ('Mã sản phẩm %d không tồn tại', 11, 1, @MaSP)
+		end
+
+		select * from SanPham where MaSP = @MaSP
+	end try
+	begin catch
+		set @error = ERROR_MESSAGE()
+	end catch
 end
 
 go
@@ -53,43 +80,61 @@ proc usp_CapNhatSanPham
 	@MoTa nvarchar(max),
 	@TrangThaiHD bit,
 	@GiaTruocGiam int,
-	@GiaSauGiam int
+	@GiaSauGiam int,
+	@error nvarchar(MAX) output
 as
 begin 
-	if not exists (select * from SanPham where MaSP = @MaSP)
-	begin 
-		print N'Mã sản phẩm không tồn tại'
-		return 1
-	end
-	update SanPham set TenSP = @TenSP, 
-						ChuDe = @ChuDe, 
-						MauSac = @MauSac,
-						LoaiHoa = @LoaiHoa,
-						MoTa = @MoTa,
-						TrangThaiHD = @TrangThaiHD,
-						GiaTruocGiam = @GiaTruocGiam,
-						GiaSauGiam = @GiaSauGiam
-					where MaSP = @MaSP
+	begin try
+		if not exists (select * from SanPham where MaSP = @MaSP)
+		begin 
+			RAISERROR ('Mã sản phẩm %d không tồn tại', 11, 1, @MaSP)
+		end
+		update SanPham set TenSP = @TenSP, 
+							ChuDe = @ChuDe, 
+							MauSac = @MauSac,
+							LoaiHoa = @LoaiHoa,
+							MoTa = @MoTa,
+							TrangThaiHD = @TrangThaiHD,
+							GiaTruocGiam = @GiaTruocGiam,
+							GiaSauGiam = @GiaSauGiam
+						output inserted.*
+						where MaSP = @MaSP
+	end try
+	begin catch
+		set @error = ERROR_MESSAGE()
+	end catch
 end
 
 go
 create
 --alter 
 proc usp_TheoDoiTonKho 
+	@error nvarchar(MAX) output
 as
 begin
-	select sp.MaSP, sp.TenSP, cn.MaCNhanh, cn.TenCNhanh, spcn.SoLuongTon
-	from SP_CN spcn, SanPham sp, ChiNhanh cn 
-	where spcn.MaSP = sp.MaSP and cn.MaCNhanh = spcn.MaCNhanh
+	begin try
+		select sp.MaSP, sp.TenSP, cn.MaCNhanh, cn.TenCNhanh, spcn.SoLuongTon
+		from SP_CN spcn, SanPham sp, ChiNhanh cn 
+		where spcn.MaSP = sp.MaSP and cn.MaCNhanh = spcn.MaCNhanh
+	end try
+	begin catch
+		set @error = ERROR_MESSAGE()
+	end catch
 end
 
 go
 create
 --alter 
 proc usp_TheoDoiDonNhap
+	@error nvarchar(MAX) output
 as
 begin
-	select * from DonNhap
+	begin try
+		select * from DonNhap
+	end try
+	begin catch
+		set @error = ERROR_MESSAGE()
+	end catch
 end
 
 go
@@ -99,14 +144,21 @@ proc usp_LuuVetGiaSanPham
 	@MaSP int,
 	@GiaTruocGiam int,
 	@GiaSauGiam int,
-	@NgayApDung datetime
+	@NgayApDung datetime,
+	@error nvarchar(MAX) output
 as
 begin
-	if not exists (select * from SanPham where MaSP = @MaSP)
-	begin 
-		print N'Mã sản phẩm không tồn tại'
-		return 1
-	end
-	insert into LichSuGia (MaSP, GiaTruocGiam, GiaSauGiam, NgayApDung) 
-	values (@MaSP, @GiaTruocGiam, @GiaSauGiam, @NgayApDung)
+	begin try
+		if not exists (select * from SanPham where MaSP = @MaSP)
+		begin 
+			RAISERROR ('Mã sản phẩm %d không tồn tại', 11, 1, @MaSP)
+		end
+		insert into LichSuGia (MaSP, GiaTruocGiam, GiaSauGiam, NgayApDung) 
+		output inserted.*
+		values (@MaSP, @GiaTruocGiam, @GiaSauGiam, @NgayApDung)
+
+	end try
+	begin catch
+		set @error = ERROR_MESSAGE()
+	end catch
 end
