@@ -128,7 +128,8 @@ CREATE TABLE KhuVuc
 (
 	MaKV INT IDENTITY,
 	MaTinh TINYINT NOT NULL,
-	Quan_Huyen NVARCHAR(30) CHECK (Quan_Huyen <> ' '),
+	TenTinh NVARCHAR(30) CHECK (TenTinh <> ' '),
+	Ten_QHuyen NVARCHAR(30) CHECK (Ten_QHuyen <> ' '),
 	PhiGiaoHang INT NOT NULL,
 	MaCNhanh INT NOT NULL
 	
