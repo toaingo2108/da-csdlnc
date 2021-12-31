@@ -2,21 +2,21 @@
 create 
 --alter
 proc usp_ThemSanPham
-	@TenSP nvarchar(50),
-	@ChuDe tinyint,
-	@MauSac tinyint,
-	@LoaiHoa smallint,
-	@MoTa nvarchar(max),
-	@TrangThaiHD bit,
-	@GiaTruocGiam int,
-	@GiaSauGiam int,
+	@TenSP NVARCHAR(50),
+	@MaMau TINYINT,
+	@MaLoaiHoa SMAllINT,
+	@TenLoaiHoa NVARCHAR(30),
+	@MoTa NVARCHAR(1500),
+	@TrangThaiHD BIT,
+	@GiaTruocGiam INT,
+	@GiaSauGiam INT,
 	@error nvarchar(MAX) output
 as
 begin
 	begin try
-		insert into SanPham (TenSP, ChuDe, MauSac, LoaiHoa, MoTa, TrangThaiHD, GiaTruocGiam, GiaSauGiam) 
+		insert into SanPham (TenSP, MaMau, MaLoaiHoa, TenLoaiHoa, MoTa, TrangThaiHD, GiaTruocGiam, GiaSauGiam) 
 		output inserted.* 
-		values (@TenSP, @ChuDe, @MauSac, @LoaiHoa, @MoTa, @TrangThaiHD, @GiaTruocGiam, @GiaSauGiam)
+		values (@TenSP, @MaMau, @MaLoaiHoa, @TenLoaiHoa, @MoTa, @TrangThaiHD, @GiaTruocGiam, @GiaSauGiam)
 
 	end try
 	begin catch
@@ -73,14 +73,14 @@ create
 --alter
 proc usp_CapNhatSanPham
 	@MaSP int,
-	@TenSP nvarchar(50),
-	@ChuDe tinyint,
-	@MauSac tinyint,
-	@LoaiHoa smallint,
-	@MoTa nvarchar(max),
-	@TrangThaiHD bit,
-	@GiaTruocGiam int,
-	@GiaSauGiam int,
+	@TenSP NVARCHAR(50),
+	@MaMau TINYINT,
+	@MaLoaiHoa SMAllINT,
+	@TenLoaiHoa NVARCHAR(30),
+	@MoTa NVARCHAR(1500),
+	@TrangThaiHD BIT,
+	@GiaTruocGiam INT,
+	@GiaSauGiam INT,
 	@error nvarchar(MAX) output
 as
 begin 
@@ -90,9 +90,9 @@ begin
 			RAISERROR ('Mã sản phẩm %d không tồn tại', 11, 1, @MaSP)
 		end
 		update SanPham set TenSP = @TenSP, 
-							ChuDe = @ChuDe, 
-							MauSac = @MauSac,
-							LoaiHoa = @LoaiHoa,
+							MaMau = @MaMau, 
+							MaLoaiHoa = @MaLoaiHoa,
+							TenLoaiHoa = @TenLoaiHoa,
 							MoTa = @MoTa,
 							TrangThaiHD = @TrangThaiHD,
 							GiaTruocGiam = @GiaTruocGiam,
