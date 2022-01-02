@@ -97,7 +97,7 @@ set identity_insert SanPham on;
     select 47,N'Khúc biệt ly',1,10,N'Đồng tiền',N'',1,705000,650000 UNION ALL
     select 48,N'Red box',6,13,N'thạch thảo',N'',1,950000,880000 UNION ALL
     select 49,N'Hồng vàng ánh trăng',3,5,N'Cát tường',N'',1,780000,650000 UNION ALL
-    select 50,N'Yêu xa',4,7,N'Đinh lăng',N'',1,250000,220000 UNION ALL
+    select 50,N'Yêu xa 2',4,7,N'Đinh lăng',N'',1,250000,220000 UNION ALL
     select 51,N'Bó Hoa Tú Cầu',1,12,N'Lily',N'',1,440000,400000 UNION ALL
     select 52,N'Rose Rapture',1,1,N'Cẩm chướng',N'',1,1855000,1800000 UNION ALL
     select 53,N'Màu Của Nắng',7,1,N'Cẩm chướng',N'',1,3355000,3300000 UNION ALL
@@ -110,7 +110,7 @@ set identity_insert SanPham on;
     select 60,N'Màu Của Nắng',2,1,N'Cẩm chướng',N'',1,3300000,3300000 UNION ALL
     select 61,N'Rose Rapture',3,2,N'Hồ điệp',N'',1,1800000,1800000 UNION ALL
     select 62,N'Bó Hoa Tú Cầu',5,4,N'Lan',N'',1,440000,400000 UNION ALL
-    select 63,N'Yêu xa',5,11,N'Cúc',N'',1,250000,220000 UNION ALL
+    select 63,N'Yêu xa 3',5,11,N'Cúc',N'',1,250000,220000 UNION ALL
     select 64,N'Hồng vàng ánh trăng',8,2,N'Hồ điệp',N'',1,780000,650000 UNION ALL
     select 65,N'Red box',7,11,N'Cúc',N'',1,950000,880000 UNION ALL
     select 66,N'Khúc biệt ly',5,7,N'Đinh lăng',N'',1,650000,650000 UNION ALL
