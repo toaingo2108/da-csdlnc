@@ -2,42 +2,85 @@
 GO
 --15.   Thêm tài khoản khách hàng
 CREATE 
-PROC uspTHEMKHACHHANG 
-	@MAKH INT, 
+PROC usp_THEMKHACHHANG
 	@HOKH nvarchar(30), 
 	@TENKH nvarchar(30), 
 	@SDT_KH VARCHAR(15), 
 	@EmailKH VARCHAR(30), 
 	@MatKhauKH VARCHAR(20),
-	@DiaChiKH NVARCHAR(255)
+	@DiaChiKH NVARCHAR(255),
+	@error nvarchar(MAX) output
 AS 
 BEGIN 
-SET IDENTITY_INSERT KHACHHANG ON
-	IF EXISTS (SELECT* FROM KHACHHANG WHERE MaKH = @MAKH)
-		RETURN 2
-	INSERT INTO KHACHHANG(MAKH, HOKH,TENKH,SDT_KH,EmailKH,MatKhauKH,DiaChiKH) VALUES (@MAKH, @HOKH,@TENKH,@SDT_KH,@EmailKH,@MatKhauKH,@DiaChiKH) 
-	RETURN 1
-SET IDENTITY_INSERT KHACHHANG OFF
+	begin try
+		INSERT INTO KHACHHANG( HOKH,TENKH,SDT_KH,EmailKH,MatKhauKH,DiaChiKH) 
+		output inserted.* 
+		VALUES ( @HOKH,@TENKH,@SDT_KH,@EmailKH,@MatKhauKH,@DiaChiKH) 
+	end try
+	begin catch
+		set @error = ERROR_MESSAGE()
+	end catch
 END 
 go 
---16.   Sửa thông tin tài khoản khách hàng
+--16.   Sửa thông tin  khách hàng
 CREATE 
-PROC uspSUAKHACHHANG 
+proc usp_DoiMatKhauKhachHang
+	@MaKH int,
+	@MatKhauCu varchar(20),
+	@MatKhauMoi varchar(20),
+	@error nvarchar(MAX) output
+as
+begin
+	begin try
+		if not exists (select * from KhachHang where MaKH = @MaKH)
+		begin
+			RAISERROR ('Mã khách hàng %d không tồn tại', 11, 1, @MaKH)
+		end
+	
+		declare @MatKhauKH varchar(20)
+		set @MatKhauKH = (select MatKhauKH from KhachHang where MaKH = @MaKH)
+
+		if (@MatKhauKH != @MatKhauCu)
+		begin
+			RAISERROR ('Mật khẩu cũ không chính xác', 11, 2)
+		end
+
+		update KhachHang set MatKhauKH = @MatKhauMoi
+		output inserted.* 
+		where MaKH = @MaKH
+	end try
+	begin catch
+		set @error = ERROR_MESSAGE()
+	end catch
+end
+GO
+
+CREATE
+--alter
+PROC uspSUAKHACHHANG
 	@MAKH INT, 
 	@HOKH nvarchar(30), 
 	@TENKH nvarchar(30), 
 	@SDT_KH VARCHAR(15), 
 	@EmailKH VARCHAR(30), 
-	@MatKhauKH VARCHAR(20),
-	@DiaChiKH NVARCHAR(255)
+	@DiaChiKH NVARCHAR(255),
+	@error nvarchar(MAX) output
 AS 
 BEGIN 
-	IF NOT EXISTS (SELECT* FROM KHACHHANG WHERE MaKH = @MAKH)
-		RETURN 2
-	UPDATE KHACHHANG SET HoKH=@HOKH, TenKH=@TENKH, SDT_KH=@SDT_KH,EmailKH=@EmailKH,MatKhauKH=@MatKhauKH,DiaChiKH=@DiaChiKH
-	WHERE MaKH=@MAKH
-	RETURN 1
+	begin try
+		IF NOT EXISTS (SELECT* FROM KHACHHANG WHERE MaKH = @MAKH)
+		begin
+			RAISERROR ('Mã khách hàng %d không tồn tại', 11, 1, @MAKH)
+		end
+		UPDATE KHACHHANG  SET HoKH=@HOKH, TenKH=@TENKH, SDT_KH=@SDT_KH,EmailKH=@EmailKH,DiaChiKH=@DiaChiKH
+		output inserted.*
+		WHERE MaKH=@MAKH
+	end try
+	begin catch
+		set @error = ERROR_MESSAGE()
+	end catch
 END 
+GO
 go 
 --17.   Xem tình trạng đơn hàng và giao hàng
 CREATE 
@@ -131,5 +174,4 @@ AS
 BEGIN
 	SELECT * FROM SanPham
 	WHERE (@MIN <= GiaSauGiam AND @MAX>= GiaSauGiam)
-	RETURN 1
 END

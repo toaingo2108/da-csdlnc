@@ -218,19 +218,20 @@ end
 go
 create
 --alter 
-proc usp_XemDHVaCTDH
+proc usp_XemChiTietDonHang
 	@MaDH int,
 	@error nvarchar(MAX) output
 as
 begin
 	begin try
-		select * from DonHang DH, ChiTietDH CT 
-			where DH.MaDH = @MaDH and CT.MaDH = DH.MaDH
+		select * from ChiTietDH
+			where MaDH = @MaDH
 	end try
 	begin catch
 		set @error = ERROR_MESSAGE()
 	end catch
 end
+
 
 --25. Xem danh sách quà tặng kèm
 go
