@@ -1,0 +1,37 @@
+
+
+###
+POST http://localhost:5000/api/khach-hang
+Content-Type: application/json
+
+{
+    "HoKH": "test",
+    "TenKH": "test",
+    "SDT_KH": "12345678",
+    "EmailKH": "test@test.com", 
+    "MatKhauKH": "12345", 
+    "DiaChiKH": "abcdefTesst test"
+}
+
+###
+PUT http://localhost:5000/api/khach-hang/sua-thong-tin
+Content-Type: application/json
+
+{
+    "MaKH": "251111", 
+    "HoKH": "test2",
+    "TenKH": "test2",
+    "SDT_KH": "123456782",
+    "EmailKH": "tes2t@test.com", 
+    "DiaChiKH": "abcde2fTesst test"
+}
+
+###
+PUT http://localhost:5000/api/khach-hang/doi-mat-khau
+Content-Type: application/json
+
+{
+    "MaKH": "251111", 
+    "MatKhauCu": "tritri",
+    "MatKhauMoi": "123"
+}

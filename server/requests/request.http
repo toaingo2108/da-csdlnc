@@ -1,0 +1,42 @@
+GET http://localhost:5000/api/5
+
+
+
+###
+DELETE http://localhost:5000/api/xoa-san-pham/3
+
+###
+GET http://localhost:5000/api/tim-san-pham/3
+
+### 
+PUT http://localhost:5000/api/sua-san-pham
+Content-Type: application/json
+
+{
+    "MaSP": "3",
+    "TenSP": "Test",
+    "MaMau": "1",
+    "MaLoaiHoa": "1",
+    "TenLoaiHoa": "1",
+    "MoTa": "1",
+    "TrangThaiHD": "1",
+    "GiaTruocGiam": "1",
+    "GiaSauGiam": "1"
+}
+
+###
+GET http://localhost:5000/api/theo-doi-ton-kho
+
+###
+GET http://localhost:5000/api/theo-doi-don-nhap
+
+###
+POST http://localhost:5000/api/luu-vet-gia-san-pham
+Content-Type: application/json
+
+{
+    "MaSP": "6", 
+    "GiaTruocGiam": "1000", 
+    "GiaSauGiam": "100", 
+    "NgayApDung": "2021-02-03"
+}

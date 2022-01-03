@@ -1,0 +1,32 @@
+GET http://localhost:5000/api/san-pham
+
+###
+GET http://localhost:5000/api/san-pham/chi-tiet/8
+
+###
+GET http://localhost:5000/api/san-pham/tim-san-pham/bông
+
+###
+GET http://localhost:5000/api/san-pham/chu-de/1
+
+###
+GET http://localhost:5000/api/san-pham/mau-sac/1
+
+###
+POST http://localhost:5000/api/san-pham/them-san-pham
+Content-Type: application/json
+
+{
+    "TenSP": "Hoa Cúc Trắng",
+    "MaMau": "1",
+    "MaLoaiHoa": "1",
+    "MoTa": "Đây là hoa để test",
+    "GiaTruocGiam": "100000",
+    "GiaSauGiam": "50000",
+    "LinkHinhAnh": "https://st.quantrimang.com/photos/image/2020/07/11/Anh-Hoa-Cuc-13.jpg"
+}
+
+
+	
+
+	

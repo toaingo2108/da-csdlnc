@@ -1,0 +1,14 @@
+###
+GET http://localhost:5000/api/khu-vuc/ten-tinh
+
+###
+GET http://localhost:5000/api/khu-vuc/ten-quan-huyen/Hồ Chí Minh
+
+###
+GET http://localhost:5000/api/khu-vuc/xuat-khu-vuc
+Content-Type: application/json
+
+{
+    "tenTinh" : "Bình Định",
+    "ten_QHuyen": "An Lão"
+}

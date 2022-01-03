@@ -1,0 +1,29 @@
+###
+GET http://localhost:5000/api/don-hang/khach-hang/1
+
+###
+GET http://localhost:5000/api/don-hang/chi-tiet/223\
+
+###
+POST http://localhost:5000/api/don-hang/tao-don-hang
+Content-Type: application/json
+
+{
+    "SDT_NgNhan": "098765456",
+    "HinhThucTT": "1",
+    "TrangThaiDH": "1",
+    "MaKH": "251111",
+    "MaQTang": "1",
+    "MaCNhanh": "1",
+    "MaKV": "1"
+}
+
+###
+POST http://localhost:5000/api/don-hang/them-chi-tiet
+Content-Type: application/json
+
+{
+    "MaDH": "1807112" , 
+	"MaSP": "45" , 
+	"SoLuongDat": "2" 
+}
