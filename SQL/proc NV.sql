@@ -195,19 +195,4 @@ begin
 	end catch
 end
 
---Xem danh sách chi nhánh hiện có + nhân viên quản lý
 go
-create 
---alter
-proc usp_XemDSChiNhanh
-	@error nvarchar(MAX) output
-as
-begin
-	begin try
-		select CN.*, NV.MaNV, NV.HoTenNV from NhanVien NV join ChiNhanh CN on NV.MaCNhanh = CN.MaCNhanh
-										join NVQuanLy QL on NV.MaNV = QL.MaNV where CN.TrangThaiHD = 1
-	end try
-	begin catch
-		set @error = ERROR_MESSAGE()
-	end catch
-end
