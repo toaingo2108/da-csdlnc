@@ -80,7 +80,6 @@ proc usp_ThemDonHang
 	@MaQTang int, 
 	@MaCNhanh int ,
 	@MaKV int, 
-	@MaDH int output,
 	@error nvarchar(MAX) output
 as
 begin
@@ -99,15 +98,14 @@ begin
 			select @GiaQuaTang=Gia from QuaTangKem where MaQTang = @MaQTang
 		else
 			set @GiaQuaTang = 0
-	    
-		set @MaDH = 1
+
 		declare @PhiGiaoHang int, @TongTienDH int
 		select @PhiGiaoHang = PhiGiaoHang from KhuVuc where MaKV = @MaKV
 		set @TongTienDH = @PhiGiaoHang + @GiaQuaTang
+
 		insert DonHang(SDT_NgNhan,NgayLap,HinhThucTT,TrangThaiDH,TongTienSP,PhiGiaoHang,TongTienDH,MaKH,MaQTang,MaCNhanh,MaKV)
 		output inserted.*
 		values(@SDT_NgNhan,GETDATE(),@HinhThucTT,@TrangThaiDH,0,@PhiGiaoHang,@TongTienDH,@MaKH,@MaQTang,@MaCNhanh,@MaKV)
-		set @MaDH = @@IDENTITY
 	end try
 	begin catch
 		set @error = ERROR_MESSAGE()
@@ -143,18 +141,17 @@ begin
 		insert ChiTietDH
 		output inserted.*
 		values(@MaSP,@MaDH,@SoLuongDat,@GiaBan,@TenSP,@ThanhTien)
+
 		--cập nhật lại đơn hàng
 		declare @TongTienSP int, @TongTienDH int
 		select @TongTienSP=TongTienSP, @TongTienDH=TongTienDH from DonHang where MaDH=@MaDH
 		set @TongTienSP = @TongTienSP + @ThanhTien
 		set @TongTienDH = @TongTienDH + @ThanhTien
 		update DonHang set TongTienSP=@TongTienSP,TongTienDH=@TongTienDH 
-		output inserted.*
 		where MaDH=@MaDH
 		--cập nhật lại số lượng tồn sản phẩm
 		set @SoLuongTon = @SoLuongTon - @SoLuongDat
 		update SP_CN set SoLuongTon=@SoLuongTon 
-		output inserted.*
 		where MaSP=@MaSP and MaCNhanh=@MaCNhanh
 	end try
 	begin catch
