@@ -5,18 +5,19 @@ proc usp_ThemSanPham
 	@TenSP NVARCHAR(50),
 	@MaMau TINYINT,
 	@MaLoaiHoa SMAllINT,
-	@TenLoaiHoa NVARCHAR(30),
 	@MoTa NVARCHAR(1500),
-	@TrangThaiHD BIT,
 	@GiaTruocGiam INT,
 	@GiaSauGiam INT,
+	@LinkHinhAnh varchar(500),
 	@error nvarchar(MAX) output
-as
+as	
+	declare @TenLoaiHoa NVARCHAR(30)
 begin
+	set @TenLoaiHoa = (select TenLoaiHoa from LoaiHoa where MaLoaiHoa = @MaLoaiHoa)
 	begin try
-		insert into SanPham (TenSP, MaMau, MaLoaiHoa, TenLoaiHoa, MoTa, TrangThaiHD, GiaTruocGiam, GiaSauGiam) 
+		insert into SanPham (TenSP, MaMau, MaLoaiHoa, TenLoaiHoa, MoTa, TrangThaiHD, GiaTruocGiam, GiaSauGiam, LinkHinhAnh) 
 		output inserted.* 
-		values (@TenSP, @MaMau, @MaLoaiHoa, @TenLoaiHoa, @MoTa, @TrangThaiHD, @GiaTruocGiam, @GiaSauGiam)
+		values (@TenSP, @MaMau, @MaLoaiHoa, @TenLoaiHoa, @MoTa, 1, @GiaTruocGiam, @GiaSauGiam, @LinkHinhAnh)
 
 	end try
 	begin catch
@@ -38,8 +39,8 @@ begin
 			RAISERROR ('Mã sản phẩm %d không tồn tại', 11, 1, @MaSP)
 		end
 
-		delete SanPham 
-		output deleted.* 
+		update SanPham set TrangThaiHD = 0 
+		output inserted.* 
 		where MaSP = @MaSP
 	end try
 	begin catch
@@ -78,9 +79,9 @@ proc usp_CapNhatSanPham
 	@MaLoaiHoa SMAllINT,
 	@TenLoaiHoa NVARCHAR(30),
 	@MoTa NVARCHAR(1500),
-	@TrangThaiHD BIT,
 	@GiaTruocGiam INT,
 	@GiaSauGiam INT,
+	@LinkHinhAnh varchar(500),
 	@error nvarchar(MAX) output
 as
 begin 
@@ -94,9 +95,9 @@ begin
 							MaLoaiHoa = @MaLoaiHoa,
 							TenLoaiHoa = @TenLoaiHoa,
 							MoTa = @MoTa,
-							TrangThaiHD = @TrangThaiHD,
 							GiaTruocGiam = @GiaTruocGiam,
-							GiaSauGiam = @GiaSauGiam
+							GiaSauGiam = @GiaSauGiam,
+							LinkHinhAnh = @LinkHinhAnh
 						output inserted.*
 						where MaSP = @MaSP
 	end try
