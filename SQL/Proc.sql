@@ -1446,7 +1446,7 @@ begin
 	end catch
 end
 
---37.3 Xóa nhân viên quản lí
+--37.2 Xóa nhân viên quản lí
 go 
 create
 --alter 
