@@ -871,7 +871,7 @@ end
 -----------------------------------------
 --Nhân viên bán và giao hàng
 
---Xem danh sách đơn hàng mà chưa được giao
+--28. Xem danh sách đơn hàng mà chưa được giao
 go
 create 
 --alter
@@ -894,7 +894,7 @@ begin
 	end catch
 end
 
---Chọn đơn hàng để giao
+--29. Chọn đơn hàng để giao
 go
 create 
 --alter
@@ -922,7 +922,7 @@ begin
 	end catch
 end
 
---Thêm đơn hàng offline
+--30. Thêm đơn hàng offline
 go
 create 
 --alter
@@ -973,7 +973,7 @@ begin
 	end catch
 end
 
---Xem lịch sử thưởng + lương
+--31. Xem lịch sử thưởng + lương
 go
 create 
 --alter
@@ -994,7 +994,7 @@ begin
 	end catch
 end
 
---Xem danh sách nhân viên theo chi nhánh (có hiện công việc hiện tại)
+--32. Xem danh sách nhân viên theo chi nhánh (có hiện công việc hiện tại)
 go
 create 
 --alter
@@ -1015,7 +1015,7 @@ begin
 	end catch
 end
 
---Xem thông tin nhân viên có hiện lịch sử lương và lịch sử thưởng
+--33. Xem thông tin nhân viên có hiện lịch sử lương và lịch sử thưởng
 go
 create 
 --alter
@@ -1043,7 +1043,7 @@ begin
 	end catch
 end
 
---Thay đổi tình trạng đơn hàng
+--34. Thay đổi tình trạng đơn hàng
 go
 create 
 --alter
@@ -1071,6 +1071,7 @@ go
 --Quản trị viên
 
 go
+-- 40. Thêm sản phẩm
 create 
 --alter
 proc usp_ThemSanPham
@@ -1097,6 +1098,7 @@ begin
 	end catch
 end
 
+--40.2 Xoá sản phẩm
 go 
 create
 --alter 
@@ -1120,6 +1122,7 @@ begin
 	end catch 
 end
 
+--41. Tìm sản phẩm
 go
 create
 --alter
@@ -1141,6 +1144,7 @@ begin
 	end catch
 end
 
+--40.3 Cập nhật sản phẩm
 go
 create
 --alter
@@ -1178,6 +1182,7 @@ begin
 	end catch
 end
 
+--42. Xem số lượng tồn
 go
 create
 --alter 
@@ -1195,6 +1200,7 @@ begin
 	end catch
 end
 
+--43. Xem đơn nhập
 go
 create
 --alter 
@@ -1210,6 +1216,7 @@ begin
 	end catch
 end
 
+--44. Thêm lịch sử giá sản phẩm
 go
 create
 --alter
@@ -1237,7 +1244,7 @@ begin
 end
 go
 
---Thêm chi nhánh
+--35. Thêm chi nhánh
 go
 create 
 --alter
@@ -1263,7 +1270,7 @@ begin
 	end catch
 end
 go
---Sửa chi nhánh
+--36. Sửa chi nhánh
 go
 create
 --alter
@@ -1298,7 +1305,7 @@ begin
 	end catch
 end
 go
---Xóa chi nhánh
+--37. Xóa chi nhánh
 go 
 create
 --alter 
@@ -1320,7 +1327,7 @@ begin
 	end catch 
 end
 go
---Thêm khu vực
+--35.2 Thêm khu vực
 go
 create 
 --alter
@@ -1349,7 +1356,7 @@ begin
 	end catch
 end
 
---Sửa khu vực
+--36.2 Sửa khu vực
 go
 create
 --alter
@@ -1385,7 +1392,7 @@ begin
 	end catch
 end
 
---Thêm nhân viên quản lí
+--35.3 Thêm nhân viên quản lí
 go
 create 
 --alter
@@ -1410,7 +1417,7 @@ begin
 	end catch
 end
 
---Sửa nhân viên quản lí
+--36.3 Sửa nhân viên quản lí
 go
 create 
 --alter
@@ -1439,7 +1446,7 @@ begin
 	end catch
 end
 
---Xóa nhân viên quản lí
+--37.3 Xóa nhân viên quản lí
 go 
 create
 --alter 
@@ -1460,7 +1467,7 @@ begin
 	end catch 
 end
 
---Xem danh sách chi nhánh hiện có + nhân viên quản lý
+--38. Xem danh sách chi nhánh hiện có + nhân viên quản lý
 go
 create 
 --alter
